@@ -1,100 +1,138 @@
-let options= Array ('rock','paper','scisors');
-        
-function random (a,b){
-    return 0.5 - Math.random();
-}
+const cScoreNumber= document.querySelector('.cScoreNumber');
+const pScoreNumber= document.querySelector('.pScoreNumber');
+const r = document.getElementById('r'); 
+const p = document.getElementById ('p'); 
+const s = document.getElementById ('s');
+const feedback = document.querySelector('.feedback');
+const  buttons = document.querySelectorAll ('button');
+const finalResult = document.querySelector ('.finalResult');
+let imgPlayer = document.getElementById('player');
+let imgComputer = document.getElementById('computer');
 
-function computerplay () {
-    let mixedarray= options.sort(random);
-    let optioncomputer = options[0];
-    return optioncomputer
-}
 
-let cscore = 0
+let cscore= 0
 let pscore = 0
+let round = 0
 
-
-function playRound (a,b){
-    if ((a == 'rock') && (b == 'paper')) {
-        cscore += 0;
-        pscore += 1;
-        console.log ('You win, paper beats rock');
-        return
-    }
-    else if (a == 'rock' && b == 'scisors'){
-        cscore += 1;
-        pscore += 0;
-        console.log ('You lose, rock beats scisors');
-        return
-    }
-    else if (a == 'rock' && b == 'rock'){
-        cscore += 1;
-        pscore += 1;
-        console.log ('Tie Game');
-        return
-    }
-    else if (a == 'paper' && b == 'rock'){
-        cscore += 1;
-        pscore += 0;
-        console.log ('You lose, paper beats rock');
-        return 
-    }
-    else if (a == 'paper' && b == 'scisors'){
-        cscore += 0;
-        pscore += 1;
-        console.log ('You win, scisors beats paper');
-        return 
-    }
-    else if (a == 'paper' && b == 'paper'){
-        cscore += 1;
-        pscore += 1;
-        console.log ('Tie Game')
-        return
-    }
-    else if (a == 'scisors' && b == 'paper'){
-        cscore += 1;
-        pscore += 0;
-        console.log ('You lose, scisors beats paper');
-        return 
-    }
-    else if (a == 'scisors' && b == 'rock'){
-        cscore += 0;
-        pscore += 1;
-        console.log ('You win, rock beats scisors');
-        return
-    }
-    else if (a == 'scisors' && b == 'scisors'){
-        cscore += 1;
-        pscore += 1;
-        console.log ('Tie Game')
-        return
-    }
-    else {
-        console.log ('Not rock, paper or scisors written')
-    }
-    
+function result () {
+    if (cscore > pscore){
+        finalResult.textContent = 'You lose'
+    } 
+    else { 
+            finalResult.textContent = 'You win'
+        }
 }
 
-function game (){
-    for (let i=0;i<5;i++){
-        computerplay ()
-        let computer = computerplay();
-        let optionplayer = prompt('Choose rock, paper or scisors:')
-        let playerchoice = optionplayer.toLowerCase();
-        console.log ('Computer chose ' + computer)
-        playRound(computer,playerchoice)
+function clash (game){
+   if (game === 'rr' || game === 'pp' || game === 'ss' ){
+        cscore += 0
+        pscore += 0
+        cScoreNumber.textContent = `${cscore}`
+        pScoreNumber.textContent = `${pscore}`
+        feedback.textContent = "It's a tied game"
+    } 
+    else if (game === 'rp'){
+                cscore += 1        
+                cScoreNumber.textContent = `${cscore}`
+                feedback.textContent = 'You lose. Paper beats rock'
+            }
+    else if (game === 'sr'){
+        cscore += 1
+        cScoreNumber.textContent = `${cscore}`
+        feedback.textContent = 'You lose. Rock beats sicssors'
     }
+    else if (game === 'ps'){
+        cscore += 1
+        cScoreNumber.textContent = `${cscore}`
+        feedback.textContent = 'You lose. Scissors beats paper'
+    }
+    else if (game === 'pr'){
+        pscore += 1
+        pScoreNumber.textContent = `${pscore}`
+        feedback.textContent = 'You win. Paper beats rock'
+    } 
+    else if (game === 'rs'){
+        pscore += 1
+        pScoreNumber.textContent = `${pscore}`
+        feedback.textContent = 'You win. Rock beats sicssors'
+    }            
+    else if (game === 'sp'){
+        pscore += 1
+        pScoreNumber.textContent = `${pscore}`
+        feedback.textContent = 'You win. Scissors beats paper'
+    }
+ };
+
+
+function play (playerMove){
+    let playerChoice =  playerMove;
+    let randomNumber = Math.floor((Math.random() * 3));
+    let options = ['r','p','s']; 
+    let computerChoice = options[randomNumber]
+   function playerSelection (){ 
+        if (playerChoice == 'r'){
+            imgPlayer.src = 'images/rock.png'
+        }
+        else if (playerChoice == 'p'){
+            imgPlayer.src = 'images/paper.png'
+        } 
+        else if (playerChoice == 's'){
+            imgPlayer.src = 'images/scissors.png'
+        };
+    };
+    playerSelection();
+    function computerSelection (){ 
+        if (computerChoice == 'r'){
+            imgComputer.src = 'images/rock.png'
+        }
+        else if (computerChoice == 'p'){
+            imgComputer.src = 'images/paper.png'
+        } 
+        else if (computerChoice == 's'){
+            imgComputer.src = 'images/scissors.png'
+        }
+    };
+    computerSelection();
+    let game= playerChoice+computerChoice;
+    clash (game);
 }
 
-function winner (){
-    if (pscore > cscore) {
-        console.log ('You winn');
-    }
-    else {
-        console.log ('You lose');
-    }
-}
-game ()
-winner ()
+function classAdded (id){
+    id.classList.add ('clicked')}
 
-        
+    function removeClass (e){
+        if (e.propertyName !== 'background-color'){return}
+        this.classList.remove ('clicked')
+    } 
+
+function roundCounter (){
+    round += 1
+    console.log (round);
+};
+
+function clickSelection () {
+    r.addEventListener('click', ()=> { 
+        if (round ==5  ) {result (); return }  
+        play('r'), 
+        classAdded (r);
+        roundCounter(); 
+        r.addEventListener('transitionend', removeClass);
+    });
+    s.addEventListener('click', ()=>{ 
+        if (round ==5 ) {result (); return }  
+        play('s'), 
+        classAdded (s);
+        roundCounter ();
+        s.addEventListener('transitionend', removeClass);
+    });
+    p.addEventListener('click', ()=>{ 
+        if (round ==5 ) {result (); return }  
+        play('p'),  
+        classAdded (p);
+        roundCounter();
+        p.addEventListener('transitionend', removeClass);
+    });
+}
+
+
+clickSelection();
