@@ -68,3 +68,28 @@ img {
     border: hsl(49, 100%, 25%) 3px solid;
     background-color: #b6ae95;
 }
+
+.result { 
+    display: flex;
+    flex-direction: column;
+}
+
+.played {
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player, .computer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+.played img { 
+    width: 100px;
+    padding: 10px;
+    border-radius: 50%;
+}
