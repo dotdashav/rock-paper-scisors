@@ -1,100 +1,97 @@
-/*let options= Array ('rock','paper','scisors');
-        
+const cScoreNumber= document.querySelector('.cScoreNumber');
+const pScoreNumber= document.querySelector('.pScoreNumber');
+const r = document.getElementById('r'); 
+const p = document.getElementById ('p'); 
+const s = document.getElementById ('s');
+const feedback = document.querySelector('.feedback');
+
+
+
+
+
+//r is for rock, p is for paper and s is for scissors
+let options= ['r','p','s'];
+
 function random (a,b){
     return 0.5 - Math.random();
 }
 
 function computerplay () {
     let mixedarray= options.sort(random);
-    let optioncomputer = options[0];
-    return optioncomputer
-}
+    let computerchoice = options[0];
+    return computerChoice = computerchoice;
+}    
 
 let cscore = 0
 let pscore = 0
 
-
-function playRound (a,b){
-    if ((a == 'rock') && (b == 'paper')) {
-        cscore += 0;
-        pscore += 1;
-        console.log ('You win, paper beats rock');
-        return
-    }
-    else if (a == 'rock' && b == 'scisors'){
-        cscore += 1;
-        pscore += 0;
-        console.log ('You lose, rock beats scisors');
-        return
-    }
-    else if (a == 'rock' && b == 'rock'){
-        cscore += 1;
-        pscore += 1;
-        console.log ('Tie Game');
-        return
-    }
-    else if (a == 'paper' && b == 'rock'){
-        cscore += 1;
-        pscore += 0;
-        console.log ('You lose, paper beats rock');
-        return 
-    }
-    else if (a == 'paper' && b == 'scisors'){
-        cscore += 0;
-        pscore += 1;
-        console.log ('You win, scisors beats paper');
-        return 
-    }
-    else if (a == 'paper' && b == 'paper'){
-        cscore += 1;
-        pscore += 1;
-        console.log ('Tie Game')
-        return
-    }
-    else if (a == 'scisors' && b == 'paper'){
-        cscore += 1;
-        pscore += 0;
-        console.log ('You lose, scisors beats paper');
-        return 
-    }
-    else if (a == 'scisors' && b == 'rock'){
-        cscore += 0;
-        pscore += 1;
-        console.log ('You win, rock beats scisors');
-        return
-    }
-    else if (a == 'scisors' && b == 'scisors'){
-        cscore += 1;
-        pscore += 1;
-        console.log ('Tie Game')
-        return
-    }
-    else {
-        console.log ('Not rock, paper or scisors written')
-    }
-    
+function choicePlayer( ) {
+        r.addEventListener('click',  function (){return playRound ('r', computerplay())});
+        p.addEventListener('click',  function (){return playRound ('p', computerplay())});
+        s.addEventListener('click',  function (){return playRound ('s', computerplay())});
 }
 
-function game (){
-    for (let i=0;i<5;i++){
-        computerplay ()
-        let computer = computerplay();
-        let optionplayer = prompt('Choose rock, paper or scisors:')
-        let playerchoice = optionplayer.toLowerCase();
-        console.log ('Computer chose ' + computer)
-        playRound(computer,playerchoice)
+
+
+
+function playRound ( playerchoice , computerchoice){
+    let option = playerchoice + computerchoice; 
+    if (option === 'pr') {
+        pscore += 1;
+        pScoreNumber.textContent = `${pscore}`;
+        feedback.textContent ='You win, paper beats rock';
     }
+    else if (option === 'sr'){
+        cscore += 1;
+        cScoreNumber.textContent = `${cscore}`;
+        feedback.textContent = 'You lose, rock beats scissors';
+    }
+    else if (option === 'rr'){
+        cscore += 1;
+        pscore += 1;
+        pScoreNumber.textContent = `${pscore}`;
+        cScoreNumber.textContent = `${cscore}`;
+        feedback.textContent  = 'Tie Game';
+    }
+    else if (option === 'rp'){
+        cscore += 1;
+        cScoreNumber.textContent = `${cscore}`;
+        feedback.textContent  = 'You lose, paper beats rock';
+    }
+    else if (option ==='sp'){
+        pscore += 1;  
+        pScoreNumber.textContent = `${pscore}`;
+        feedback.textContent= 'You win, scissors beats paper';
+    }
+    else if (option ==='pp'){
+        cscore += 1;
+        pscore += 1;
+        pScoreNumber.textContent = `${pscore}`;
+        cScoreNumber.textContent = `${cscore}`;
+        feedback.textContent  = 'Tie Game'
+    }
+    else if (option === 'ps'){
+        cscore += 1;
+        cScoreNumber.textContent = `${cscore}`;
+        feedback.textContent  = 'You lose, scissors beats paper';
+    }
+    else if (option ==='rs'){
+        pscore += 1;
+        pScoreNumber.textContent = `${pscore}`;
+        feedback.textContent  = 'You win, rock beats scissors';
+    }
+    else if (option === 'ss'){
+        cscore += 1;
+        pscore += 1;
+        pScoreNumber.textContent = `${pscore}`;
+        cScoreNumber.textContent = `${cscore}`;
+        feedback.textContent  = 'Tie Game'
+    }   
 }
 
-function winner (){
-    if (pscore > cscore) {
-        console.log ('You winn');
-    }
-    else {
-        console.log ('You lose');
-    }
+function fiveRounds (){ 
+    if ( cscore >=5 || pscore>=5 ) {alert('Stop');}
+    else {choicePlayer(), console.log (cscore)};
 }
-game ()
-winner () */
 
-        
+fiveRounds();
