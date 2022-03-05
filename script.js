@@ -1,4 +1,4 @@
-let options= Array ('rock','paper','scisors');
+/*let options= Array ('rock','paper','scisors');
         
 function random (a,b){
     return 0.5 - Math.random();
@@ -95,6 +95,6 @@ function winner (){
     }
 }
 game ()
-winner ()
+winner () */
 
         
